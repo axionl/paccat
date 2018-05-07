@@ -7,7 +7,7 @@ Arch Linux Developer Package Managaer.
 ## Usage
 
 ```shell
-paccat help
+$ paccat help
 
     === PacCat: Arch Linux Developer Package Managaer. ===
     
