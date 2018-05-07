@@ -13,39 +13,34 @@ type DependPackage struct {
 	ContainInfo string
 }
 
-type DependList struct {
-	pkg []DependPackage
-}
+var DependList = [2]DependPackage {
+	{
+		PackageName: "devtools",
+		ContainInfo: "local/devtools",
+	},
+	{
+		PackageName: "git",
+		ContainInfo: "local/git",
+	},
+} // todo: get DependList from config file.
+
 
 func CheckDepends() {
-	dependList := &DependList{
-		pkg: []DependPackage{
-			{
-				PackageName: "devtools",
-				ContainInfo: "local/devtools",
-			},
-			{
-				PackageName: "git",
-				ContainInfo: "local/git",
-			},
-		},
-	} // todo: get dependList from config file.
-
 	var containBuf bytes.Buffer
 	fmt.Printf("> Checking depends ...\n")
 
-	for item := range dependList.pkg {
-		cmd := exec.Command("pacman", "-Qs", dependList.pkg[item].PackageName)
+	for item := range DependList {
+		cmd := exec.Command("pacman", "-Qs", DependList[item].PackageName)
 		buf, err := cmd.Output()
 
 		containBuf.WriteString("Exec: pacman -Qs ")
-		containBuf.WriteString(dependList.pkg[item].PackageName)
+		containBuf.WriteString(DependList[item].PackageName)
 		error.CheckErr(containBuf.String(), err)
 
-		if strings.Contains(string(buf), dependList.pkg[item].ContainInfo) {
-			fmt.Printf("===> [Pacman] '%s' has been installed.\n", dependList.pkg[item].PackageName)
+		if strings.Contains(string(buf), DependList[item].ContainInfo) {
+			fmt.Printf("===> [Pacman] '%s' has been installed.\n", DependList[item].PackageName)
 		} else {
-			cmd = exec.Command("sudo pacman", "-S", dependList.pkg[item].PackageName)
+			cmd = exec.Command("sudo pacman", "-S", DependList[item].PackageName)
 			buf, err = cmd.Output()
 			if err != nil {
 				error.CheckErr("Cannot install depends", err)
