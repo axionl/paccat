@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"paccat/packing"
-	"os"
 	"log"
 )
 
@@ -15,17 +14,25 @@ func main()  {
 	fmt.Printf("Version: %s\n\n", Version())
 	packing.CheckDepends()
 
-	var subCmd string
+	//var subCmd string
+	//
+	//if len(os.Args) >= 2 {
+	//	rawArgs = os.Args[1:]
+	//	subCmd = os.Args[1]
+	//} else {
+	//	rawArgs = nil
+	//	subCmd = "help"
+	//}
+	//
+	//router(subCmd)
 
-	if len(os.Args) >= 2 {
-		rawArgs = os.Args[1:]
-		subCmd = os.Args[1]
-	} else {
-		rawArgs = nil
-		subCmd = "help"
-	}
+	// Testing Place
+	var pkg packing.Package
+	pkg.PackageName = "baidupcs-go-git"
+	pkg.PackagePath = "./test_package"
+	pkg.PackageVersion = "1.0.0"
 
-	router(subCmd)
+	packing.AutoPack(pkg, true)
 }
 
 func router(subCmd string) {

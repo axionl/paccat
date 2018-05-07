@@ -38,7 +38,7 @@ func CheckDepends() {
 		error.CheckErr(containBuf.String(), err)
 
 		if strings.Contains(string(buf), DependList[item].ContainInfo) {
-			fmt.Printf("===> [Pacman] '%s' has been installed.\n", DependList[item].PackageName)
+			fmt.Printf("===> [pacman] '%s' has been installed.\n", DependList[item].PackageName)
 		} else {
 			cmd = exec.Command("sudo pacman", "-S", DependList[item].PackageName)
 			buf, err = cmd.Output()
