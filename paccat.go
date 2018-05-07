@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"paccat/packing"
 	"log"
+	"os"
 )
 
 var rawArgs []string
@@ -14,25 +15,17 @@ func main()  {
 	fmt.Printf("Version: %s\n\n", Version())
 	packing.CheckDepends()
 
-	//var subCmd string
-	//
-	//if len(os.Args) >= 2 {
-	//	rawArgs = os.Args[1:]
-	//	subCmd = os.Args[1]
-	//} else {
-	//	rawArgs = nil
-	//	subCmd = "help"
-	//}
-	//
-	//router(subCmd)
+	var subCmd string
 
-	// Testing Place
-	var pkg packing.Package
-	pkg.PackageName = "baidupcs-go-git"
-	pkg.PackagePath = "./test_package"
-	pkg.PackageVersion = "1.0.0"
+	if len(os.Args) >= 2 {
+		rawArgs = os.Args[1:]
+		subCmd = os.Args[1]
+	} else {
+		rawArgs = nil
+		subCmd = "help"
+	}
 
-	packing.AutoPack(pkg, true)
+	router(subCmd)
 }
 
 func router(subCmd string) {

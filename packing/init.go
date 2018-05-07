@@ -5,7 +5,7 @@ import (
 	"os/exec"
 	"strings"
 	"bytes"
-	"paccat/error"
+	"paccat/logger"
 )
 
 type DependPackage struct {
@@ -35,7 +35,7 @@ func CheckDepends() {
 
 		containBuf.WriteString("Exec: pacman -Qs ")
 		containBuf.WriteString(DependList[item].PackageName)
-		error.CheckErr(containBuf.String(), err)
+		logger.CheckErr(containBuf.String(), err)
 
 		if strings.Contains(string(buf), DependList[item].ContainInfo) {
 			fmt.Printf("===> [pacman] '%s' has been installed.\n", DependList[item].PackageName)
@@ -43,7 +43,7 @@ func CheckDepends() {
 			cmd = exec.Command("sudo pacman", "-S", DependList[item].PackageName)
 			buf, err = cmd.Output()
 			if err != nil {
-				error.CheckErr("Cannot install depends", err)
+				logger.CheckErr("Cannot install depends", err)
 			}
 			fmt.Printf("%s", buf)
 		}
