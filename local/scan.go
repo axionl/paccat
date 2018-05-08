@@ -4,10 +4,10 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"paccat/logger"
-	"strings"
 	"os"
 	"os/exec"
+	"paccat/logger"
+	"strings"
 )
 
 var gitFlag bool
@@ -36,7 +36,7 @@ func Scan(dir string) []string {
 
 	fmt.Println("[git] Checking ...")
 	initGit(dir)
-	
+
 	return packages
 }
 

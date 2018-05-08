@@ -24,7 +24,6 @@ var DependList = []DependPackage{
 	},
 } // todo: get DependList from config file.
 
-
 func CheckDevTools() {
 	var containBuf bytes.Buffer
 	fmt.Printf("> Checking depends ...\n")

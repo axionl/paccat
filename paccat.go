@@ -31,7 +31,7 @@ func main() {
 func router(subCmd string) {
 	switch subCmd {
 	case "version":
-		fmt.Printf("ฅ'ω'ฅ Version: %s\n", Version())
+		fmt.Printf("Version: %s\n", Version())
 		return
 	case "help":
 		docHelp()
