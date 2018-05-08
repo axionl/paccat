@@ -1,19 +1,19 @@
 package packing
 
 import (
-	"os/exec"
 	"bytes"
 	"fmt"
-	"paccat/logger"
 	"os"
+	"os/exec"
+	"paccat/logger"
 )
 
 type Package struct {
-	Name string
+	Name    string
 	Version string
 	Release string
-	Path string
-	Url string
+	Path    string
+	Url     string
 }
 
 func AutoPack(packageInfo Package, quiet_mode bool) {

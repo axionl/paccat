@@ -2,27 +2,27 @@ package main
 
 import (
 	"fmt"
-	"paccat/packing"
 	"log"
 	"os"
+	"paccat/instances"
 )
 
 var rawArgs []string
 
-func main()  {
+func main() {
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
-	fmt.Println("Welcome to PacCat! ฅ'ω'ฅ")
-	fmt.Printf("Version: %s\n\n", Version())
-	packing.CheckDepends()
-
 	var subCmd string
 
-	if len(os.Args) >= 2 {
-		rawArgs = os.Args[1:]
+	if len(os.Args) > 1 {
 		subCmd = os.Args[1]
+		if len(os.Args) > 2 {
+			rawArgs = os.Args[2:]
+		} else {
+			rawArgs = nil
+		}
 	} else {
+		subCmd = ""
 		rawArgs = nil
-		subCmd = "help"
 	}
 
 	router(subCmd)
@@ -37,58 +37,26 @@ func router(subCmd string) {
 		docHelp()
 		return
 	case "init":
-		//init(os.Args[2])
+		instances.Init(rawArgs)
 		return
 	case "add":
 		return
 	case "update":
-		return 
+		return
 	case "freeze":
-		return 
+		return
 	case "destroy":
-		return 
+		return
 	case "test":
-		return 
+		return
 	case "check":
 		return
 	case "checkall":
-		return 
+		return
 	case "config":
 		return
-	//case "echo":
-	//	echo(rawArgs[1:]) // test route
-	//	return
+	default:
+		echo()
+		return
 	}
 }
-
-func Version() string {
-	version := "0.0.1" // todo: get version from config file.
-	return version
-}
-
-func docHelp() {
-	fmt.Printf("\n")
-	fmt.Println(`=== PacCat: Arch Linux Developer Package Managaer. ===
-
-   init [repo_dir] - Initialize a (git) repository .
-   help - Help menu
-
-   add [package_dir] - Add package index, the package folder should have the same name as the package.
-   update [package_dir] - Manually trigger package updates.
-   freeze [package_dir] - Freeze package update and remove it from task.
-   destory [package_dir] - Remove package for local and remote.
-   test [package_dir] - Try local packing.
-
-   check [package_dir] - Check source updates.
-   checkall - Get all available updates.
-
-   config [*.conf] - Setting up the configuration file.
-	`)
-}
-
-//
-//func echo(rawArgs []string){
-//	for item := range rawArgs{
-//		fmt.Println(rawArgs[item])
-//	}
-//}

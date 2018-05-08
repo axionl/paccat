@@ -1,11 +1,11 @@
 package packing
 
 import (
+	"bytes"
 	"fmt"
 	"os/exec"
-	"strings"
-	"bytes"
 	"paccat/logger"
+	"strings"
 )
 
 type DependPackage struct {
@@ -13,7 +13,7 @@ type DependPackage struct {
 	ContainInfo string
 }
 
-var DependList = [2]DependPackage {
+var DependList = []DependPackage{
 	{
 		PackageName: "devtools",
 		ContainInfo: "local/devtools",
@@ -25,7 +25,7 @@ var DependList = [2]DependPackage {
 } // todo: get DependList from config file.
 
 
-func CheckDepends() {
+func CheckDevTools() {
 	var containBuf bytes.Buffer
 	fmt.Printf("> Checking depends ...\n")
 

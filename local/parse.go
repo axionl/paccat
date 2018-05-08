@@ -1,13 +1,13 @@
 package local
 
 import (
+	"bufio"
+	"errors"
+	"io/ioutil"
 	"os"
 	"paccat/logger"
-	"bufio"
-	"strings"
-	"io/ioutil"
-	"errors"
 	"paccat/packing"
+	"strings"
 )
 
 func readFile(pkgPath string) (*os.File, *bufio.Scanner) {
@@ -22,7 +22,7 @@ func check(pkgPath string) bool {
 	/* Check PKGBUILD file.*/
 	files, err := ioutil.ReadDir(pkgPath)
 	logger.CheckErr("Read dir: ", err)
-	for _, file := range files{
+	for _, file := range files {
 		if file.Name() == "PKGBUILD" {
 			return true
 		}
@@ -56,8 +56,8 @@ func parse(pkgPath string) (packing.Package, error) {
 				}
 			}
 		}
-		logger.CheckErr("Scanner:", scanner.Err())
+		logger.CheckErr("Scanner: ", scanner.Err())
 		return pkg, nil
 	}
-	return pkg, errors.New("Have no PKGBUILD file.")
+	return pkg, errors.New("have no PKGBUILD file")
 }
