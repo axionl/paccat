@@ -29,18 +29,18 @@ func CheckDepends() {
 	var containBuf bytes.Buffer
 	fmt.Printf("> Checking depends ...\n")
 
-	for item := range DependList {
-		cmd := exec.Command("pacman", "-Qs", DependList[item].PackageName)
+	for _, item := range DependList {
+		cmd := exec.Command("pacman", "-Qs", item.PackageName)
 		buf, err := cmd.Output()
 
 		containBuf.WriteString("Exec: pacman -Qs ")
-		containBuf.WriteString(DependList[item].PackageName)
+		containBuf.WriteString(item.PackageName)
 		logger.CheckErr(containBuf.String(), err)
 
-		if strings.Contains(string(buf), DependList[item].ContainInfo) {
-			fmt.Printf("===> [pacman] '%s' has been installed.\n", DependList[item].PackageName)
+		if strings.Contains(string(buf), item.ContainInfo) {
+			fmt.Printf("===> [pacman] '%s' has been installed.\n", item.PackageName)
 		} else {
-			cmd = exec.Command("sudo pacman", "-S", DependList[item].PackageName)
+			cmd = exec.Command("sudo pacman", "-S", item.PackageName)
 			buf, err = cmd.Output()
 			if err != nil {
 				logger.CheckErr("Cannot install depends", err)
