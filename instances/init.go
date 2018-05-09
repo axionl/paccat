@@ -6,10 +6,9 @@ import (
 	"paccat/logger"
 )
 
-var dir string
-var gitFlag bool
-
 func Init(rawArgs []string) {
+	var dir string
+
 	if rawArgs == nil {
 		dir = "."
 	} else if len(rawArgs) == 1 {
@@ -19,6 +18,4 @@ func Init(rawArgs []string) {
 		logger.CheckErr("Initialized repository: ", err)
 	}
 	local.Scan(dir)
-
-	//packing.CheckDevTools()
 }
