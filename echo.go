@@ -9,4 +9,5 @@ func echo() {
 	fmt.Println("Version: ", Version())
 	fmt.Println("Author: axionl <axionl@aosc.io>")
 	fmt.Println("URL: https://github.com/axionl/paccat")
+	fmt.Println("Tips: `paccat help` to get help, `paccat version` to get version")
 }
