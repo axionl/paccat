@@ -16,22 +16,24 @@ type Package struct {
 	Url     string
 }
 
-func AutoPack(packageInfo Package, quiet_mode bool) {
-	checkDevTools()
+func AutoPack(pkg Package, quietMode bool) {
 	var containBuf bytes.Buffer
-	fmt.Printf("> Making package ...\n")
-	fmt.Printf("===> [extra-x86_64-build] Package Name: `%s`", packageInfo.Name)
 
-	os.Chdir(packageInfo.Path)
+	checkDevTools(quietMode)
+
+	fmt.Println("> Making package ...")
+	fmt.Printf("===> [extra-x86_64-build] Package Name: `%s`\n", pkg.Name)
+
+	os.Chdir(pkg.Path)
 	cmd := exec.Command("extra-x86_64-build")
 	buf, err := cmd.Output()
 
 	containBuf.WriteString("Exec: extra-x86_64-build")
-	containBuf.WriteString(packageInfo.Name)
+	containBuf.WriteString(pkg.Name)
 	logger.CheckErr(containBuf.String(), err)
 
-	if !quiet_mode {
-		fmt.Printf("===> [extra-x86_64-build] %s", buf)
+	if !quietMode {
+		fmt.Printf("===> [extra-x86_64-build] %s\n", buf)
 	}
-	fmt.Printf("Building success! \n")
+	fmt.Printf("> Packaged successfully!\n")
 }
