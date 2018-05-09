@@ -42,6 +42,7 @@ func router(subCmd string) {
 	case "add":
 		return
 	case "update":
+		instances.Update(rawArgs)
 		return
 	case "freeze":
 		return
