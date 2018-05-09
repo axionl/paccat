@@ -13,6 +13,7 @@ update  [package_dir] - Manually trigger package updates.
 freeze  [package_dir] - Freeze package update and remove it from task.
 destory [package_dir] - Remove package for local and remote.
 test    [package_dir] - Try local packing.
+		--quiet, -q   - Quiet Mode.
 
 check   [package_dir] - Check source updates.
 checkall              - Get all available updates.
