@@ -17,6 +17,7 @@ type Package struct {
 }
 
 func AutoPack(packageInfo Package, quiet_mode bool) {
+	checkDevTools()
 	var containBuf bytes.Buffer
 	fmt.Printf("> Making package ...\n")
 	fmt.Printf("===> [extra-x86_64-build] Package Name: `%s`", packageInfo.Name)

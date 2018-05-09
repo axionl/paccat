@@ -48,6 +48,7 @@ func router(subCmd string) {
 	case "destroy":
 		return
 	case "test":
+		instances.Test(rawArgs)
 		return
 	case "check":
 		return

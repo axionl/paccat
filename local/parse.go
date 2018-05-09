@@ -30,7 +30,7 @@ func check(pkgPath string) bool {
 	return false
 }
 
-func parse(pkgPath string) (packing.Package, error) {
+func Parse(pkgPath string) (packing.Package, error) {
 	var pkg packing.Package
 
 	res := check(pkgPath)

@@ -8,12 +8,12 @@ import (
 	"strings"
 )
 
-type DependPackage struct {
+type devTool struct {
 	PackageName string
 	ContainInfo string
 }
 
-var DependList = []DependPackage{
+var devTools = []devTool{
 	{
 		PackageName: "devtools",
 		ContainInfo: "local/devtools",
@@ -22,13 +22,13 @@ var DependList = []DependPackage{
 		PackageName: "git",
 		ContainInfo: "local/git",
 	},
-} // todo: get DependList from config file.
+} // todo: get devTools from config file.
 
-func CheckDevTools() {
+func checkDevTools() {
 	var containBuf bytes.Buffer
 	fmt.Printf("> Checking depends ...\n")
 
-	for _, item := range DependList {
+	for _, item := range devTools {
 		cmd := exec.Command("pacman", "-Qs", item.PackageName)
 		buf, err := cmd.Output()
 
