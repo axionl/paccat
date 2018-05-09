@@ -24,9 +24,11 @@ var devTools = []devTool{
 	},
 } // todo: get devTools from config file.
 
-func checkDevTools() {
+func checkDevTools(quietMode bool) {
 	var containBuf bytes.Buffer
-	fmt.Printf("> Checking depends ...\n")
+	if !quietMode {
+		fmt.Printf("> Checking depends ...\n")
+	}
 
 	for _, item := range devTools {
 		cmd := exec.Command("pacman", "-Qs", item.PackageName)
@@ -37,15 +39,19 @@ func checkDevTools() {
 		logger.CheckErr(containBuf.String(), err)
 
 		if strings.Contains(string(buf), item.ContainInfo) {
-			fmt.Printf("===> [pacman] '%s' has been installed.\n", item.PackageName)
+			if !quietMode {
+				fmt.Printf("===> [pacman] '%s' has been installed.\n", item.PackageName)
+			}
 		} else {
 			cmd = exec.Command("sudo pacman", "-S", item.PackageName)
 			buf, err = cmd.Output()
 			if err != nil {
 				logger.CheckErr("Cannot install depends", err)
 			}
-			fmt.Printf("%s", buf)
+			if !quietMode {
+				fmt.Printf("%s", buf)
+			}
 		}
 	}
-	fmt.Printf("> Checking depends pass!\n\n")
+	fmt.Printf("> Checking depends pass!\n")
 }
