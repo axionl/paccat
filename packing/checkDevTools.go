@@ -22,6 +22,10 @@ var devTools = []devTool{
 		PackageName: "git",
 		ContainInfo: "local/git",
 	},
+	{
+		PackageName: "arch-install-scripts",
+		ContainInfo: "local/arch-install-scripts",
+	},
 } // todo: get devTools from config file.
 
 func checkDevTools(quietMode bool) {
