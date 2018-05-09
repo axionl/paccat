@@ -28,8 +28,9 @@ func AutoPack(pkg Package, quietMode bool) {
 	cmd := exec.Command("extra-x86_64-build")
 	buf, err := cmd.Output()
 
-	containBuf.WriteString("Exec: extra-x86_64-build")
+	containBuf.WriteString("Exec: extra-x86_64-build ")
 	containBuf.WriteString(pkg.Name)
+	containBuf.WriteString("\nYou may need to reinstall container by `extra-x86_64-build`")
 	logger.CheckErr(containBuf.String(), err)
 
 	if !quietMode {
