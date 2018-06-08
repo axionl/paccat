@@ -3,8 +3,10 @@ package packing
 import (
 	"bytes"
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
+	"paccat/container"
 	"paccat/logger"
 )
 
@@ -17,9 +19,13 @@ type Package struct {
 }
 
 func AutoPack(pkg Package, quietMode bool) {
+	// todo: auto pack without archlinux devel-tools.
 	var containBuf bytes.Buffer
 
 	checkDevTools(quietMode)
+
+	requireEUID0()
+	container.CheckContainerStatus()
 
 	fmt.Println("> Making package ...")
 	fmt.Printf("===> [extra-x86_64-build] Package Name: `%s`\n", pkg.Name)
@@ -37,4 +43,10 @@ func AutoPack(pkg Package, quietMode bool) {
 		fmt.Printf("===> [extra-x86_64-build] %s\n", buf)
 	}
 	fmt.Printf("> Packaged successfully!\n")
+}
+
+func requireEUID0() {
+	if os.Geteuid() != 0 {
+		log.Fatalln("need to be root")
+	}
 }
